@@ -1,0 +1,25 @@
+ val charizardChetado = Pokemon(
+        id = 6,
+        name = "Charizard",
+        sprites = Sprites(
+            other = Other(
+                officialArtwork = OficialArtwork(
+                    frontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png"
+                )
+            )
+        ),
+        types = listOf(
+            TypeData(1, TypeInfo("fire", "https://pokeapi.co/api/v2/type/10/")),
+            TypeData(2, TypeInfo("flying", "https://pokeapi.co/api/v2/type/3/"))
+        ),
+        height = 1.7,
+        weight = 90.5,
+        stats = listOf(
+            StatData(78, 1, TypeInfo("hp", "https://pokeapi.co/api/v2/stat/1/")),
+            StatData(184, 0, TypeInfo("attack", "https://pokeapi.co/api/v2/stat/2/")),
+            StatData(137, 0, TypeInfo("special-attack", "https://pokeapi.co/api/v2/stat/4/")),
+            StatData(220, 0, TypeInfo("defense", "https://pokeapi.co/api/v2/stat/3/")),
+            StatData(87, 0, TypeInfo("special-defense", "https://pokeapi.co/api/v2/stat/5/")),
+            StatData(173, 0, TypeInfo("speed", "https://pokeapi.co/api/v2/stat/6/"))
+        )
+    )
