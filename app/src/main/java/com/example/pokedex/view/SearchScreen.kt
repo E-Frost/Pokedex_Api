@@ -14,11 +14,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.repository.PokemonService
-import com.example.pokedex.data.repository.RepositorioJson
+import com.example.pokedex.data.repository.api.PokemonService
 import com.example.pokedex.viewmodel.PokedexViewModel
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

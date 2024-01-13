@@ -3,7 +3,6 @@ package com.example.pokedex.data.repository
 import android.content.Context
 import android.util.Log
 import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.ui.theme.poisonColors
 import com.google.gson.Gson
 import java.io.IOException
 import java.io.InputStream
