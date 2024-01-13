@@ -14,7 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.pokedex.view.Pokedex
 import com.example.pokedex.viewmodel.PokedexViewModel
 import com.example.pokedex.ui.theme.PokedexTheme
-import com.example.pokedex.view.ListaPokemons
+import com.example.pokedex.view.OtherFormsListScreen
 import com.example.pokedex.view.PokemonListScreen
 import com.example.pokedex.view.SearchScreen
 
@@ -32,16 +32,13 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold {
                     Column {
-                        /*
-                        ListaPokemons(navController, viewModel)
 
-                         */
-
-                        PokemonListScreen(navController = navController, viewModel = viewModel)
+                        //PokemonListScreen(navController = navController, viewModel = viewModel)
+                        OtherFormsListScreen(navController = navController, viewModel = viewModel)
                     }
                     NavHost(
                         navController = navController,
-                        startDestination = "listaApi"
+                        startDestination = "listaApiOtrasFormas"
                     ) {
 
                         composable("Buscador"){
@@ -52,6 +49,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("listaApi"){
                             PokemonListScreen(navController = navController, viewModel = viewModel)
+                        }
+                        composable("listaApiOtrasFormas"){
+                            OtherFormsListScreen(navController = navController, viewModel = viewModel)
                         }
                     }
                 }
