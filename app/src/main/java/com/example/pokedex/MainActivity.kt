@@ -43,12 +43,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = "listaApi"
                     ) {
-                        /*
-                        composable("Lista Pokemons") {
-                            ListaPokemons(navController, viewModel)
-                        }
 
-                         */
                         composable("Buscador"){
                             SearchScreen(navController = navController, viewModel = viewModel)
                         }

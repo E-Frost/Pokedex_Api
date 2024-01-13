@@ -17,18 +17,21 @@ interface PokemonService {
         @Query("offset") offset: Int? = null
     ): Response<PokemonListResponse>
 
-    @GET("pokemon/{dexNumOrName}/")
-    fun getPokemonByDexNumOrName(@Path("dexNumOrName") dexNumOrName: String?): Call<Pokemon?>?
+    @GET("pokemon/")
+    suspend fun getAllPokemonUnusualVersions(
+        @Query("limit") limit: Int? = null,
+        @Query("offset") offset: Int? = null
+    ): Response<PokemonListResponse>
 
     @GET("pokemon/{name}")
     suspend fun getPokemonByName(
         @Path("name") name: String
-    )
+    ): Response<Pokemon>
 
     @GET("pokemon/{id}")
     suspend fun getPokemonById(
         @Path("id") id: Int
-    )
+    ): Response<Pokemon>
 
     companion object {
         const val BASE_URL = "https://pokeapi.co/api/v2/"

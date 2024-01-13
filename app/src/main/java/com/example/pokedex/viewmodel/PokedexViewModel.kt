@@ -7,32 +7,38 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.data.model.PokemonListItem
-import com.example.pokedex.data.model.PokemonListResponse
-import com.example.pokedex.data.repository.RepositorioJson
+import com.example.pokedex.data.repository.Repositorio
 import com.example.pokedex.data.repository.api.PokemonService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
 class PokedexViewModel(application: Application) : AndroidViewModel(application) {
-    val repositorio = RepositorioJson(application)
+    val repositorio = Repositorio(application)
     private val _pokemon = MutableLiveData<Pokemon>()
     var pokemon: LiveData<Pokemon> = _pokemon
 
     private var _pokemonList = MutableLiveData<List<PokemonListItem>>()
     var pokemonList: LiveData<List<PokemonListItem>> = _pokemonList
-    val POKEMON_LIST_LIMIT = 1020
+    val POKEMON_LIST_LIMIT = 1008
 
     private var _pokemonIds = MutableLiveData<List<Int>>()
-    var pokemonIds : LiveData<List<Int>> = _pokemonIds
+    var pokemonIds: LiveData<List<Int>> = _pokemonIds
 
     init {
         loadPokemonList()
     }
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(PokemonService.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val pokemonService = retrofit.create(PokemonService::class.java)
+
     private suspend fun fetchPokemonList(): List<PokemonListItem>? {
         return withContext(Dispatchers.IO) {
             try {
@@ -65,36 +71,19 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-
-    /*
-    suspend fun fetchPokemonList(): Response<PokemonListResponse> {
-        return withContext(Dispatchers.IO) {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(PokemonService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-            val pokemonService = retrofit.create(PokemonService::class.java)
-            return@withContext pokemonService.getAllPokemon(limit = POKEMONLISTLIMIT)
-        }
-    }
-
-     */
-
-
-    /*
-    init {
-        cargarPokemon(pokemonName)
-    }
-     */
-
     fun cargarPokemon(pokemonName: String) {
         viewModelScope.launch {
-            val loadedPokemon = withContext(Dispatchers.IO) {
-                repositorio.cargarDatosDesdeJSON(pokemonName)
+            val pokemonFromApi = repositorio.cargarPokemonDesdeApi(pokemonName)
+
+            if (pokemonFromApi != null) {
+                _pokemon.postValue(pokemonFromApi)
+            } else {
+                val pokemonFromJson = withContext(Dispatchers.IO) {
+                    repositorio.cargarDatosDesdeJSON(pokemonName)
+                }
+
+                _pokemon.postValue(pokemonFromJson)
             }
-            _pokemon.postValue(loadedPokemon)
         }
     }
 }
-
