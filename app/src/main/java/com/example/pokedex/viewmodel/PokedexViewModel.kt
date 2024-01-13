@@ -25,7 +25,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
     private var _pokemonList = MutableLiveData<List<PokemonListItem>>()
     var pokemonList: LiveData<List<PokemonListItem>> = _pokemonList
-    val POKEMON_LIST_LIMIT = 1200
+    val POKEMON_LIST_LIMIT = 1020
 
     private var _pokemonIds = MutableLiveData<List<Int>>()
     var pokemonIds : LiveData<List<Int>> = _pokemonIds

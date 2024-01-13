@@ -1,7 +1,10 @@
 package com.example.pokedex.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +36,7 @@ fun PokemonListScreen(navController: NavHostController, viewModel: PokedexViewMo
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primary)
             .padding(25.dp)
     ) {
         items(pokemonList) { pokemon ->
@@ -55,19 +59,31 @@ fun PokemonListScreen(navController: NavHostController, viewModel: PokedexViewMo
                         .padding(30.dp)
                 ) {
                     if (currentPokemonId != null) {
-                        Text(
-                            text = "#$currentPokemonId - ${
-                                pokemon.name.replaceFirstChar {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "#$currentPokemonId",
+                                style = TextStyle(
+                                    fontSize = 23.sp,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Left
+                                )
+                            )
+
+                            Text(
+                                text = pokemon.name.replaceFirstChar {
                                     if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-                                }
-                            }",
-                            style = TextStyle(
-                                fontSize = 30.sp, color = Color.White, textAlign = TextAlign.Center
-                            ),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                        )
+                                },
+                                style = TextStyle(
+                                    fontSize = 23.sp,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center
+                                ),
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
                     }
                 }
             }
