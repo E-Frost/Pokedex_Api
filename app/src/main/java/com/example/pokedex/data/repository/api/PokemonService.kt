@@ -2,7 +2,6 @@ package com.example.pokedex.data.repository.api
 
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.data.model.PokemonListResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -30,7 +29,7 @@ interface PokemonService {
 
     @GET("pokemon/{id}")
     suspend fun getPokemonById(
-        @Path("id") id: Int
+        @Path("id") id: String
     ): Response<Pokemon>
 
     companion object {

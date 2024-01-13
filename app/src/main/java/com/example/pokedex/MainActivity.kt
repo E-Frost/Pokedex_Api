@@ -15,6 +15,7 @@ import com.example.pokedex.view.Pokedex
 import com.example.pokedex.viewmodel.PokedexViewModel
 import com.example.pokedex.ui.theme.PokedexTheme
 import com.example.pokedex.view.OtherFormsListScreen
+import com.example.pokedex.view.PokedexInitialScreen
 import com.example.pokedex.view.PokemonListScreen
 import com.example.pokedex.view.SearchScreen
 
@@ -33,14 +34,14 @@ class MainActivity : ComponentActivity() {
                 Scaffold {
                     Column {
 
-                        //PokemonListScreen(navController = navController, viewModel = viewModel)
-                        OtherFormsListScreen(navController = navController, viewModel = viewModel)
                     }
                     NavHost(
                         navController = navController,
-                        startDestination = "listaApiOtrasFormas"
+                        startDestination = "pantallaInicial"
                     ) {
-
+                        composable("pantallaInicial"){
+                            PokedexInitialScreen(navController = navController, viewModel = viewModel)
+                        }
                         composable("Buscador"){
                             SearchScreen(navController = navController, viewModel = viewModel)
                         }

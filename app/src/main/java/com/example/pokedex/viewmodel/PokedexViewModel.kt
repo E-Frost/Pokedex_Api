@@ -79,6 +79,19 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    private fun loadPokemonListOtherForms() {
+        val otherFormsFirstElement = POKEMON_LIST_LIMIT + 1
+        viewModelScope.launch {
+            val pokemonListOtherForms = fetchPokemonListOtherForms(OFFSET)
+            if (!pokemonListOtherForms.isNullOrEmpty()) {
+                _pokemonListOtherForms.value = pokemonListOtherForms
+
+                val pokemonIdsOtherForms = (otherFormsFirstElement until otherFormsFirstElement + pokemonListOtherForms.size).toList()
+                _pokemonIdsotherForms.value = pokemonIdsOtherForms
+            }
+        }
+    }
+
     private suspend fun fetchPokemonListOtherForms(offset: Int): List<PokemonListItem>? {
         return withContext(Dispatchers.IO) {
             try {
@@ -101,19 +114,6 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 }
             } catch (e: Exception) {
                 return@withContext null
-            }
-        }
-    }
-
-    private fun loadPokemonListOtherForms() {
-        val otherFormsFirstElement = POKEMON_LIST_LIMIT + 1
-        viewModelScope.launch {
-            val pokemonListOtherForms = fetchPokemonListOtherForms(OFFSET)
-            if (!pokemonListOtherForms.isNullOrEmpty()) {
-                _pokemonListOtherForms.value = pokemonListOtherForms
-
-                val pokemonIdsOtherForms = (otherFormsFirstElement until otherFormsFirstElement + pokemonListOtherForms.size).toList()
-                _pokemonIdsotherForms.value = pokemonIdsOtherForms
             }
         }
     }

@@ -102,14 +102,6 @@ fun OtherFormsListScreen(navController: NavHostController, viewModel: PokedexVie
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text(
-                                        text = "#$currentPokemonId",
-                                        style = TextStyle(
-                                            fontSize = 23.sp,
-                                            color = Color.White,
-                                            textAlign = TextAlign.Left
-                                        )
-                                    )
 
                                     Text(
                                         text = pokemon.name.replaceFirstChar {
