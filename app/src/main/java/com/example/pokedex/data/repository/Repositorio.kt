@@ -7,13 +7,15 @@ import com.example.pokedex.data.repository.api.PokemonService
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
+import javax.inject.Inject
 
-class Repositorio(val context: Context) {
+class Repositorio @Inject constructor(
+    private val context: Context,
+    private val pokemonService: PokemonService
+) {
 
     fun cargarDatosDesdeJSON( pokemonName:String): Pokemon? {
 
@@ -37,16 +39,9 @@ class Repositorio(val context: Context) {
 
         return retornoPokemon
     }
-
-     suspend fun cargarPokemonDesdeApi(pokemonName: String): Pokemon? {
+    suspend fun cargarPokemonDesdeApi(pokemonName: String): Pokemon? {
         return withContext(Dispatchers.IO) {
             try {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(PokemonService.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-
-                val pokemonService = retrofit.create(PokemonService::class.java)
                 val response = pokemonService.getPokemonByName(pokemonName)
 
                 if (response.isSuccessful) {

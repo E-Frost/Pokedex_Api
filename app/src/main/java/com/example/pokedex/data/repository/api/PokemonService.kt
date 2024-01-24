@@ -10,6 +10,7 @@ import retrofit2.http.Query
 
 interface PokemonService {
 
+
     @GET("pokemon/")
     suspend fun getAllPokemon(
         @Query("limit") limit: Int? = null,

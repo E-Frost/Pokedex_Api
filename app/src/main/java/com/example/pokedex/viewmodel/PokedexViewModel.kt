@@ -8,16 +8,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.data.model.PokemonListItem
 import com.example.pokedex.data.repository.Repositorio
+import com.example.pokedex.data.repository.api.PokedexModule
 import com.example.pokedex.data.repository.api.PokemonService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 
-class PokedexViewModel(application: Application) : AndroidViewModel(application) {
-    val repositorio = Repositorio(application)
+@HiltViewModel
+class PokedexViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
+    val repositorio = Repositorio(PokedexModule.provideContext(application),PokedexModule.providePokemonService())
     private val _pokemon = MutableLiveData<Pokemon>()
     var pokemon: LiveData<Pokemon> = _pokemon
 
@@ -40,20 +44,14 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         loadPokemonListOtherForms()
     }
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(PokemonService.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
+    val retrofit = PokedexModule.providesRetrofit()
     val pokemonService = retrofit.create(PokemonService::class.java)
 
     private suspend fun fetchPokemonList(): List<PokemonListItem>? {
         return withContext(Dispatchers.IO) {
+            val retrofit = PokedexModule.providesRetrofit()
+
             try {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(PokemonService.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
 
                 val pokemonService = retrofit.create(PokemonService::class.java)
                 val response = pokemonService.getAllPokemon(limit = POKEMON_LIST_LIMIT)
@@ -95,10 +93,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     private suspend fun fetchPokemonListOtherForms(offset: Int): List<PokemonListItem>? {
         return withContext(Dispatchers.IO) {
             try {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(PokemonService.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
+                val retrofit = PokedexModule.providesRetrofit()
 
                 val pokemonService = retrofit.create(PokemonService::class.java)
                 val response = pokemonService.getAllPokemonUnusualVersions(

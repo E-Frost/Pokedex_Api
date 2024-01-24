@@ -19,11 +19,13 @@ import com.example.pokedex.view.OtherFormsListScreen
 import com.example.pokedex.view.PokedexInitialScreen
 import com.example.pokedex.view.PokemonListScreen
 import com.example.pokedex.view.SearchScreen
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class Pokedex : Application() {
 }
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -45,19 +47,19 @@ class MainActivity : ComponentActivity() {
                         startDestination = "pantallaInicial"
                     ) {
                         composable("pantallaInicial"){
-                            PokedexInitialScreen(navController = navController, viewModel = viewModel)
+                            PokedexInitialScreen(navController,viewModel)
                         }
                         composable("Buscador"){
-                            SearchScreen(navController = navController, viewModel = viewModel)
+                            SearchScreen(navController, viewModel)
                         }
                         composable("pokedex") {
                             Pokedex(viewModel, navController)
                         }
                         composable("listaApi"){
-                            PokemonListScreen(navController = navController, viewModel = viewModel)
+                            PokemonListScreen(navController, viewModel)
                         }
                         composable("listaApiOtrasFormas"){
-                            OtherFormsListScreen(navController = navController, viewModel = viewModel)
+                            OtherFormsListScreen(navController, viewModel)
                         }
                     }
                 }
