@@ -1,6 +1,7 @@
 package com.example.pokedex
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,7 +19,11 @@ import com.example.pokedex.view.OtherFormsListScreen
 import com.example.pokedex.view.PokedexInitialScreen
 import com.example.pokedex.view.PokemonListScreen
 import com.example.pokedex.view.SearchScreen
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
+class Pokedex : Application() {
+}
 class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
