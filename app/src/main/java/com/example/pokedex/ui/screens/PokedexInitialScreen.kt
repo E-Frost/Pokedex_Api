@@ -1,4 +1,4 @@
-package com.example.pokedex.view
+package com.example.pokedex.ui.screens
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.pokedex.viewmodel.PokedexViewModel
+import com.example.pokedex.ui.viewmodels.PokedexViewModel
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

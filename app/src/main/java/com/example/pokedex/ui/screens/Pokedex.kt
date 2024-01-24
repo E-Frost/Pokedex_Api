@@ -1,4 +1,4 @@
-package com.example.pokedex.view
+package com.example.pokedex.ui.screens
 
 import android.graphics.BitmapFactory
 import android.util.Log
@@ -47,28 +47,36 @@ import androidx.palette.graphics.Palette
 import coil.compose.AsyncImage
 import com.example.pokedex.R
 import com.example.pokedex.View.TopAppBar
-import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.model.Tipo
-import com.example.pokedex.data.model.obtenerTipoConColores
+import com.example.pokedex.domain.models.Pokemon
+import com.example.pokedex.domain.models.PokemonListItem
+import com.example.pokedex.domain.models.Tipo
+import com.example.pokedex.domain.models.obtenerTipoConColores
 import com.example.pokedex.ui.theme.ataqueColors
 import com.example.pokedex.ui.theme.ataqueEspecialColors
 import com.example.pokedex.ui.theme.defensaColors
 import com.example.pokedex.ui.theme.defensaEspecialColors
 import com.example.pokedex.ui.theme.saludColors
 import com.example.pokedex.ui.theme.velocidadColors
-import com.example.pokedex.viewmodel.PokedexViewModel
+import com.example.pokedex.ui.viewmodels.PokedexViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.delay
 import java.util.Locale
 
 @Composable
-fun Pokedex(ViewModel: PokedexViewModel, navController: NavHostController) {
+fun Pokedex(navController: NavHostController, ViewModel: PokedexViewModel) {
 
     val pokemonState by ViewModel.pokemon.observeAsState()
-
     var pokemon by remember { mutableStateOf(pokemonState) }
     var checkCount by remember { mutableStateOf(0) }
     var loadingMessage by remember { mutableStateOf("Loading") }
+
+    val pokemonName = pokemon?.name
+    var megaForm: Boolean by remember { mutableStateOf(false) }
+    val pokemonList by ViewModel.pokemonListOtherForms.observeAsState(emptyList())
+    if ( checkMegaForm(pokemonName, megaForm, pokemonList)){
+        megaForm = true
+    }
+
 
     LaunchedEffect(checkCount) {
         while (true) {
@@ -90,7 +98,7 @@ fun Pokedex(ViewModel: PokedexViewModel, navController: NavHostController) {
     }
 
     if (pokemonState != null) {
-        PokedexContent(pokemonState!!, navController)
+        PokedexContent(pokemonState!!, navController, megaForm)
 
     } else {
         Box(
@@ -108,8 +116,17 @@ fun Pokedex(ViewModel: PokedexViewModel, navController: NavHostController) {
     }
 }
 
+fun checkMegaForm(pokemonName: String?, megaForm: Boolean, pokemonList: List<PokemonListItem>): Boolean {
+
+    if (megaForm) {
+        val megaFormName = "$pokemonName-mega"
+        return pokemonList.any { it.name.equals(megaFormName, ignoreCase = true) }
+    }
+    return false
+}
+
 @Composable
-fun PokedexContent(pokemon: Pokemon?, navController: NavHostController) {
+fun PokedexContent(pokemon: Pokemon?, navController: NavHostController, megaForm: Boolean) {
 
     val context = LocalContext.current
 
@@ -151,6 +168,9 @@ fun PokedexContent(pokemon: Pokemon?, navController: NavHostController) {
         item {
             TopAppBar(topAppBarColor, topAppTextColor, pokemon!!.id, navController)
             PokemonCard(pokemon)
+            if (megaForm == true) {
+                PokemonMegaForm(pokemon)
+            }
             PokemonTypeRow(pokemon)
             PokemonStatsRow(pokemon)
             HeightAndWeightPokemonRow(pokemon)
@@ -264,6 +284,28 @@ fun PokemonTypeRow(pokemon: Pokemon) {
                 tipo = obtenerTipoConColores(typeData), modifier = Modifier.weight(1f)
             )
         }
+    }
+}
+
+@Composable
+fun PokemonMegaForm(pokemon: Pokemon, modifier: Modifier = Modifier) {
+
+    Box(
+        modifier
+            .clip(MaterialTheme.shapes.medium)
+            .background(color = MaterialTheme.colorScheme.secondary)
+            .padding(8.dp)
+            .graphicsLayer(clip = true)
+    ) {
+        Text(
+            text = "Mega",
+            color = Color.White,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .wrapContentSize(align = Alignment.Center),
+            fontSize = 28.sp,
+        )
     }
 }
 

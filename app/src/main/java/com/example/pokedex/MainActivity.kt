@@ -12,13 +12,12 @@ import androidx.compose.material3.Scaffold
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.pokedex.view.Pokedex
-import com.example.pokedex.viewmodel.PokedexViewModel
+import com.example.pokedex.ui.screens.Pokedex
+import com.example.pokedex.ui.viewmodels.PokedexViewModel
 import com.example.pokedex.ui.theme.PokedexTheme
-import com.example.pokedex.view.OtherFormsListScreen
-import com.example.pokedex.view.PokedexInitialScreen
-import com.example.pokedex.view.PokemonListScreen
-import com.example.pokedex.view.SearchScreen
+import com.example.pokedex.ui.screens.OtherFormsListScreen
+import com.example.pokedex.ui.screens.PokedexInitialScreen
+import com.example.pokedex.ui.screens.PokemonListScreen
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
@@ -49,11 +48,8 @@ class MainActivity : ComponentActivity() {
                         composable("pantallaInicial"){
                             PokedexInitialScreen(navController,viewModel)
                         }
-                        composable("Buscador"){
-                            SearchScreen(navController, viewModel)
-                        }
                         composable("pokedex") {
-                            Pokedex(viewModel, navController)
+                            Pokedex(navController, viewModel)
                         }
                         composable("listaApi"){
                             PokemonListScreen(navController, viewModel)

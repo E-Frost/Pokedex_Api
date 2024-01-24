@@ -1,7 +1,7 @@
-package com.example.pokedex.data.repository.api
+package com.example.pokedex.di
 
-import android.app.Application
-import android.content.Context
+import com.example.pokedex.data.repositories.api.PokemonService
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,25 +27,17 @@ object PokedexModule {
 
     @Singleton
     @Provides
-    fun providePokemonApiService(retrofit: Retrofit): PokemonService {
-        return retrofit.create(PokemonService::class.java)
-    }
-
-
-
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context {
-        return application.applicationContext
-    }
-
-    @Singleton
-    @Provides
     fun providePokemonService(): PokemonService {
         return Retrofit.Builder()
             .baseUrl(PokemonService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PokemonService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson():Gson{
+        return Gson()
     }
 }
