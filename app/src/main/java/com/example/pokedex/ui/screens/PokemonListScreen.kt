@@ -1,4 +1,4 @@
-package com.example.pokedex.view
+package com.example.pokedex.ui.screens
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -33,7 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.pokedex.viewmodel.PokedexViewModel
+import com.example.pokedex.ui.viewmodels.PokedexViewModel
 import kotlinx.coroutines.launch
 import java.util.Locale
 

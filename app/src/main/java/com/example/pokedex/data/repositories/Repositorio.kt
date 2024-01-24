@@ -1,10 +1,10 @@
-package com.example.pokedex.data.repository
+package com.example.pokedex.data.repositories
 
-import android.content.Context
+import android.app.Application
 import android.util.Log
-import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.repository.api.PokemonService
-import com.google.gson.Gson
+import com.example.pokedex.di.PokedexModule
+import com.example.pokedex.data.repositories.api.PokemonService
+import com.example.pokedex.domain.models.Pokemon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -13,7 +13,7 @@ import java.nio.charset.Charset
 import javax.inject.Inject
 
 class Repositorio @Inject constructor(
-    private val context: Context,
+    private val application: Application,
     private val pokemonService: PokemonService
 ) {
 
@@ -23,12 +23,12 @@ class Repositorio @Inject constructor(
         try {
 
             val fileName = "$pokemonName.json"
-            val assetManager = context.assets
+            val assetManager = application.assets
             val inputStream: InputStream = assetManager.open(fileName)
             val json =
                 inputStream.bufferedReader(Charset.defaultCharset()).use { it.readText() }
 
-            val gson = Gson()
+            val gson = PokedexModule.provideGson()
             val pokemon = gson.fromJson(json, Pokemon::class.java)
 
             retornoPokemon = pokemon

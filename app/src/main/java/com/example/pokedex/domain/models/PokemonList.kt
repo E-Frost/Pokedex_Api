@@ -1,4 +1,4 @@
-package com.example.pokedex.data.model
+package com.example.pokedex.domain.models
 
 data class PokemonListResponse(
     val results: List<PokemonListItem>

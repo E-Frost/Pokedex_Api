@@ -1,4 +1,4 @@
-package com.example.pokedex.view
+package com.example.pokedex.ui.screens
 
 import android.graphics.BitmapFactory
 import android.util.Log
@@ -47,22 +47,22 @@ import androidx.palette.graphics.Palette
 import coil.compose.AsyncImage
 import com.example.pokedex.R
 import com.example.pokedex.View.TopAppBar
-import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.model.Tipo
-import com.example.pokedex.data.model.obtenerTipoConColores
+import com.example.pokedex.domain.models.Pokemon
+import com.example.pokedex.domain.models.Tipo
+import com.example.pokedex.domain.models.obtenerTipoConColores
 import com.example.pokedex.ui.theme.ataqueColors
 import com.example.pokedex.ui.theme.ataqueEspecialColors
 import com.example.pokedex.ui.theme.defensaColors
 import com.example.pokedex.ui.theme.defensaEspecialColors
 import com.example.pokedex.ui.theme.saludColors
 import com.example.pokedex.ui.theme.velocidadColors
-import com.example.pokedex.viewmodel.PokedexViewModel
+import com.example.pokedex.ui.viewmodels.PokedexViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.delay
 import java.util.Locale
 
 @Composable
-fun Pokedex(ViewModel: PokedexViewModel, navController: NavHostController) {
+fun Pokedex(navController: NavHostController, ViewModel: PokedexViewModel) {
 
     val pokemonState by ViewModel.pokemon.observeAsState()
 

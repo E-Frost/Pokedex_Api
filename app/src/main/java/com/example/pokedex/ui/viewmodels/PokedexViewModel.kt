@@ -1,27 +1,24 @@
-package com.example.pokedex.viewmodel
+package com.example.pokedex.ui.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.model.PokemonListItem
-import com.example.pokedex.data.repository.Repositorio
-import com.example.pokedex.data.repository.api.PokedexModule
-import com.example.pokedex.data.repository.api.PokemonService
+import com.example.pokedex.domain.models.Pokemon
+import com.example.pokedex.domain.models.PokemonListItem
+import com.example.pokedex.data.repositories.Repositorio
+import com.example.pokedex.di.PokedexModule
+import com.example.pokedex.data.repositories.api.PokemonService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 
 @HiltViewModel
-class PokedexViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
-    val repositorio = Repositorio(PokedexModule.provideContext(application),PokedexModule.providePokemonService())
+class PokedexViewModel @Inject constructor( val repositorio: Repositorio) :ViewModel() {
+
     private val _pokemon = MutableLiveData<Pokemon>()
     var pokemon: LiveData<Pokemon> = _pokemon
 
