@@ -24,12 +24,7 @@ import com.example.pokedex.ui.theme.tipografiaPokemon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(
-    colorBarra: Color,
-    colorTexto: Color,
-    idPokemon: Int,
-    navController: NavHostController
-) {
+fun TopAppBar(colorBarra: Color, colorTexto: Color, idPokemon: Int, navController: NavHostController) {
     val topAppBarColor = colorBarra
     val topAppBarTextColor = colorTexto
     val idetificadorPokemon = idPokemon
@@ -39,6 +34,7 @@ fun TopAppBar(
             IconButton(
                 onClick = {
                     navController.popBackStack()
+
                 }
             ) {
                 Icon(

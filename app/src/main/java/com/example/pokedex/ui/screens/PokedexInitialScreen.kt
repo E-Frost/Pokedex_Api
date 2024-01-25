@@ -10,10 +10,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.pokedex.ui.viewmodels.PokedexViewModel
 import kotlinx.coroutines.launch
@@ -27,12 +32,14 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
     var pokemonName by remember { mutableStateOf("") }
     var pokemonID by remember { mutableStateOf("") }
 
-
     Scaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .background(MaterialTheme.colorScheme.primary)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+
         ) {
             Card(
                 modifier = Modifier
@@ -41,11 +48,18 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                     .clip(MaterialTheme.shapes.large)
                     .clickable {
                         navController.navigate("listaApi")
+                    },
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
 
-                    }
-                    .background(MaterialTheme.colorScheme.primary)
-            ) {
-
+                ) {
+                Text(
+                    text = "Lista Pokemons",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        color = Color.White,
+                        textAlign = TextAlign.Center
+                    )
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -57,8 +71,24 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(8.dp)
+                    .clip(MaterialTheme.shapes.medium)
                     .padding(8.dp),
-                label = { Text("Buscar por nombre") },
+                label = {
+                    Text(
+                        "Nombre pokemon",
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        fontSize = 15.sp,
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = "$pokemonName",
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        fontSize = 40.sp,
+                    )
+                },
+
                 trailingIcon = {
                     Icon(
                         imageVector = Icons.Default.Search,
@@ -92,15 +122,18 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                                         "PokedexApp",
                                         "Error al realizar la solicitud a la API: ${e.message}"
                                     )
-
                                 }
                             }
                         }
                     )
-
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text
+                ),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onSecondary,
+                    textColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
 
@@ -113,8 +146,23 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(8.dp)
+                    .clip(MaterialTheme.shapes.medium)
                     .padding(8.dp),
-                label = { Text("Buscar por ID") },
+                label = {
+                    Text(
+                        "ID pokemon",
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        fontSize = 15.sp,
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = "$pokemonID",
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        fontSize = 40.sp,
+                    )
+                },
                 trailingIcon = {
                     Icon(
                         imageVector = Icons.Default.Search,
@@ -148,7 +196,6 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                                         "PokedexApp",
                                         "Error al realizar la solicitud a la API: ${e.message}"
                                     )
-
                                 }
                             }
                         }
@@ -156,10 +203,17 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text
+                ),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onSecondary,
+                    textColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
 
             Spacer(modifier = Modifier.height(16.dp))
+
+
 
             Card(
                 modifier = Modifier
@@ -168,14 +222,18 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                     .clip(MaterialTheme.shapes.medium)
                     .clickable {
                         navController.navigate("listaApiOtrasFormas")
-                    }
-                    .background(MaterialTheme.colorScheme.secondary)
-            ) {
-
+                    },
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
+                ) {
+                Text(
+                    text = "Lista otras formas",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        color = Color.White,
+                        textAlign = TextAlign.Center
+                    )
+                )
             }
         }
     }
 }
-
-
-

@@ -12,10 +12,7 @@ import java.io.InputStream
 import java.nio.charset.Charset
 import javax.inject.Inject
 
-class Repositorio @Inject constructor(
-    private val application: Application,
-    private val pokemonService: PokemonService
-) {
+class Repositorio @Inject constructor(private val application: Application, private val pokemonService: PokemonService) {
 
     fun cargarDatosDesdeJSON( pokemonName:String): Pokemon? {
 
@@ -39,6 +36,7 @@ class Repositorio @Inject constructor(
 
         return retornoPokemon
     }
+
     suspend fun cargarPokemonDesdeApi(pokemonName: String): Pokemon? {
         return withContext(Dispatchers.IO) {
             try {
