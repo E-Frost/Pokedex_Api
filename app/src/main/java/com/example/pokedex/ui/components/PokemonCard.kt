@@ -106,13 +106,13 @@ fun PokemonCard(pokemon: Pokemon) {
                         if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
                     },
                     style = TextStyle(
-                        fontSize = 40.sp, color = Color.White, textAlign = TextAlign.Center
+                        fontSize = 35.sp, color = Color.White, textAlign = TextAlign.Center
                     ),
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    maxLines = 1
                 )
             }
-
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -121,3 +121,4 @@ fun PokemonCard(pokemon: Pokemon) {
         }
     }
 }
+
