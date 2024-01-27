@@ -39,6 +39,9 @@ class PokedexViewModel @Inject constructor(val getPokemonFromApiUseCase: GetPoke
     private var _pokemonIdsotherForms = MutableLiveData<List<Int>>()
     var pokemonIdsOtherForms: LiveData<List<Int>> = _pokemonIdsotherForms
 
+    private val _megaForm = MutableLiveData<Boolean>()
+    val megaForm: LiveData<Boolean> get() = _megaForm
+
     init {
         loadPokemonList()
         loadPokemonListOtherForms()

@@ -34,7 +34,6 @@ fun TopAppBar(colorBarra: Color, colorTexto: Color, idPokemon: Int, navControlle
             IconButton(
                 onClick = {
                     navController.popBackStack()
-
                 }
             ) {
                 Icon(

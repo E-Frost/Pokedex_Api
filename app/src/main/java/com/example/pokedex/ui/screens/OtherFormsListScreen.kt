@@ -122,7 +122,7 @@ fun OtherFormsListScreen(navController: NavHostController, viewModel: PokedexVie
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navController.popBackStack()},
                 modifier = Modifier
                     .padding(16.dp)
             ) {

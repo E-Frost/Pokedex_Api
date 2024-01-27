@@ -130,7 +130,7 @@ fun PokemonListScreen(navController: NavHostController, viewModel: PokedexViewMo
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navController.popBackStack()},
                 modifier = Modifier
                     .padding(16.dp)
             ) {

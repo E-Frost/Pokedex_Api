@@ -76,7 +76,6 @@ fun PokemonCard(pokemon: Pokemon) {
                         val drawable = success.result.drawable
                     }
                 )
-
             }
         }
         Row(

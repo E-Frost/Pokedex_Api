@@ -216,7 +216,6 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
             Spacer(modifier = Modifier.height(16.dp))
 
 
-
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
