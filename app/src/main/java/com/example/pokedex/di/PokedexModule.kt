@@ -1,10 +1,15 @@
 package com.example.pokedex.di
 
+import android.app.Application
+import com.example.pokedex.data.repositories.RepositorioApi
 import com.example.pokedex.data.repositories.api.PokemonService
+import com.example.pokedex.domain.repositories.PokemonRepositoryApi
 import com.google.gson.Gson
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -40,4 +45,11 @@ object PokedexModule {
     fun provideGson():Gson{
         return Gson()
     }
+
+    @Provides
+    @Singleton
+    fun providePokemonRepositoryApi(application: Application, pokemonService: PokemonService): PokemonRepositoryApi {
+        return RepositorioApi(application, pokemonService)
+    }
+
 }
