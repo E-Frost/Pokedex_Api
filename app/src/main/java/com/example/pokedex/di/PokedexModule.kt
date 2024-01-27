@@ -1,12 +1,15 @@
 package com.example.pokedex.di
 
 import android.app.Application
+import com.example.pokedex.data.maps.PokemonMapper
 import com.example.pokedex.data.repositories.RepositorioApiImpl
 import com.example.pokedex.data.repositories.RepositorioLocalImpl
 import com.example.pokedex.data.sources.remote.api.PokemonService
+import com.example.pokedex.domain.models.Pokemon
 import com.example.pokedex.domain.repositories.IPokemonRepositoryApi
 import com.example.pokedex.domain.repositories.IPokemonRepositoryLocal
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,7 +32,6 @@ object PokedexModule {
             .build()
     }
 
-
     @Singleton
     @Provides
     fun providePokemonService(): PokemonService {
@@ -43,8 +45,18 @@ object PokedexModule {
     @Singleton
     @Provides
     fun provideGson():Gson{
-        return Gson()
+        return GsonBuilder()
+            .registerTypeAdapter(Pokemon::class.java, PokemonMapper())
+            .create()
     }
+
+
+    @Provides
+    @Singleton
+    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory {
+        return GsonConverterFactory.create(gson)
+    }
+
 
     @Provides
     @Singleton

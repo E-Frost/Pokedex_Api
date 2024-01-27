@@ -89,7 +89,7 @@ fun PokemonCard(pokemon: Pokemon) {
                     .weight(1f)
             ) {
                 Icon(
-                    painterResource(id = R.drawable.diamond),
+                    painterResource(id = R.drawable.shiny),
                     contentDescription = "Shiny",
                     tint = if (shiny) primaryTypeColor
                         ?: MaterialTheme.colorScheme.secondary else Color.Transparent,

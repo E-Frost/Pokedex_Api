@@ -15,12 +15,10 @@ class RepositorioLocalImpl @Inject constructor(private val application: Applicat
 
         var retornoPokemon: Pokemon? = null
         try {
-
             val fileName = "$pokemonName.json"
             val assetManager = application.assets
             val inputStream: InputStream = assetManager.open(fileName)
-            val json =
-                inputStream.bufferedReader(Charset.defaultCharset()).use { it.readText() }
+            val json = inputStream.bufferedReader(Charset.defaultCharset()).use { it.readText() }
 
             val gson = PokedexModule.provideGson()
             val pokemon = gson.fromJson(json, Pokemon::class.java)
@@ -33,4 +31,5 @@ class RepositorioLocalImpl @Inject constructor(private val application: Applicat
 
         return retornoPokemon
     }
+
 }

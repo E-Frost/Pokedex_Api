@@ -7,8 +7,8 @@ data class Pokemon(
     var name: String,
     var sprites: Sprites,
     var types: List<TypeData>,
-    var weight: Double,
-    var height: Double,
+    var weight: Float?,
+    var height: Float?,
     var stats: List<StatData>
 )
 

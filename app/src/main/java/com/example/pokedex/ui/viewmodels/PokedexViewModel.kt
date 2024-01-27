@@ -20,7 +20,12 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class PokedexViewModel @Inject constructor(val getPokemonFromApiUseCase: GetPokemonFromApiUseCase, val getPokemonListFromApiUseCase: GetPokemonListFromApiUseCase, val getPokemonOtherFormsFromApiUseCase: GetPokemonOtherFormsFromApiUseCase, val getPokemonFromJsonUseCase: GetPokemonFromJsonUseCase) :ViewModel() {
+class PokedexViewModel @Inject constructor(
+    val getPokemonFromApiUseCase: GetPokemonFromApiUseCase,
+    val getPokemonListFromApiUseCase: GetPokemonListFromApiUseCase,
+    val getPokemonOtherFormsFromApiUseCase: GetPokemonOtherFormsFromApiUseCase,
+    val getPokemonFromJsonUseCase: GetPokemonFromJsonUseCase
+) : ViewModel() {
     val POKEMON_LIST_LIMIT = 1008
     val OFFSET = 500
 
@@ -39,9 +44,6 @@ class PokedexViewModel @Inject constructor(val getPokemonFromApiUseCase: GetPoke
     private var _pokemonIdsotherForms = MutableLiveData<List<Int>>()
     var pokemonIdsOtherForms: LiveData<List<Int>> = _pokemonIdsotherForms
 
-    private val _megaForm = MutableLiveData<Boolean>()
-    val megaForm: LiveData<Boolean> get() = _megaForm
-
     init {
         loadPokemonList()
         loadPokemonListOtherForms()
@@ -49,7 +51,6 @@ class PokedexViewModel @Inject constructor(val getPokemonFromApiUseCase: GetPoke
 
     val retrofit = PokedexModule.providesRetrofit()
     val pokemonService = retrofit.create(PokemonService::class.java)
-
 
 
     private fun loadPokemonList() {
@@ -65,11 +66,16 @@ class PokedexViewModel @Inject constructor(val getPokemonFromApiUseCase: GetPoke
     private fun loadPokemonListOtherForms() {
         val otherFormsFirstElement = POKEMON_LIST_LIMIT + 1
         viewModelScope.launch {
-            val pokemonListOtherForms = getPokemonOtherFormsFromApiUseCase.fetchPokemonListOtherForms(OFFSET, POKEMON_LIST_LIMIT)
+            val pokemonListOtherForms =
+                getPokemonOtherFormsFromApiUseCase.fetchPokemonListOtherForms(
+                    OFFSET,
+                    POKEMON_LIST_LIMIT
+                )
             if (!pokemonListOtherForms.isNullOrEmpty()) {
                 _pokemonListOtherForms.value = pokemonListOtherForms
 
-                val pokemonIdsOtherForms = (otherFormsFirstElement until otherFormsFirstElement + pokemonListOtherForms.size).toList()
+                val pokemonIdsOtherForms =
+                    (otherFormsFirstElement until otherFormsFirstElement + pokemonListOtherForms.size).toList()
                 _pokemonIdsotherForms.value = pokemonIdsOtherForms
             }
         }
@@ -83,10 +89,10 @@ class PokedexViewModel @Inject constructor(val getPokemonFromApiUseCase: GetPoke
                 _pokemon.postValue(pokemonFromApi)
             } else {
                 val pokemonFromJson = withContext(Dispatchers.IO) {
-                   getPokemonFromJsonUseCase.cargarDatosDesdeJSON(pokemonName)
+                    getPokemonFromJsonUseCase.cargarDatosDesdeJSON(pokemonName)
                 }
-
                 _pokemon.postValue(pokemonFromJson)
+
             }
         }
     }

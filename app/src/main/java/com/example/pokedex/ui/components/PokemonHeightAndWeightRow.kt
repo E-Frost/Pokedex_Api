@@ -39,7 +39,7 @@ fun PokemonHeightAndWeightRow(pokemon: Pokemon) {
                 modifier = Modifier.size(28.dp)
             )
             Text(
-                text = " " + (pokemon.weight / 10).toString() + " KG",
+                text = " " + (pokemon.weight?.div(10)).toString() + " KG",
                 color = Color.White,
                 fontSize = 22.sp
             )
@@ -59,7 +59,7 @@ fun PokemonHeightAndWeightRow(pokemon: Pokemon) {
                 modifier = Modifier.size(28.dp)
             )
             Text(
-                text = " " + (pokemon.height / 10).toString() + " M ",
+                text = " " + (pokemon.height?.div(10)).toString() + " M ",
                 color = Color.White,
                 fontSize = 22.sp
             )
