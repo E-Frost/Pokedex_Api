@@ -5,12 +5,12 @@ import com.example.pokedex.data.sources.remote.api.PokemonService
 import com.example.pokedex.di.PokedexModule
 import com.example.pokedex.domain.models.Pokemon
 import com.example.pokedex.domain.models.PokemonListItem
-import com.example.pokedex.domain.repositories.PokemonRepositoryApi
+import com.example.pokedex.domain.repositories.IPokemonRepositoryApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class RepositorioApi @Inject constructor(private val application: Application, private val pokemonService: PokemonService): PokemonRepositoryApi {
+class RepositorioApiImpl @Inject constructor(private val application: Application, private val pokemonService: PokemonService): IPokemonRepositoryApi {
     override suspend fun cargarPokemonDesdeApi(pokemonName: String): Pokemon? {
         return withContext(Dispatchers.IO) {
             try {

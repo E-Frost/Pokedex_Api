@@ -1,17 +1,15 @@
 package com.example.pokedex.di
 
 import android.app.Application
-import com.example.pokedex.data.repositories.RepositorioApi
-import com.example.pokedex.data.repositories.RepositorioLocal
+import com.example.pokedex.data.repositories.RepositorioApiImpl
+import com.example.pokedex.data.repositories.RepositorioLocalImpl
 import com.example.pokedex.data.sources.remote.api.PokemonService
-import com.example.pokedex.domain.repositories.PokemonRepositoryApi
-import com.example.pokedex.domain.repositories.PokemonRepositoryLocal
+import com.example.pokedex.domain.repositories.IPokemonRepositoryApi
+import com.example.pokedex.domain.repositories.IPokemonRepositoryLocal
 import com.google.gson.Gson
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -50,13 +48,13 @@ object PokedexModule {
 
     @Provides
     @Singleton
-    fun providePokemonRepositoryApi(application: Application, pokemonService: PokemonService): PokemonRepositoryApi {
-        return RepositorioApi(application, pokemonService)
+    fun providePokemonRepositoryApi(application: Application, pokemonService: PokemonService): IPokemonRepositoryApi {
+        return RepositorioApiImpl(application, pokemonService)
     }
 
     @Provides
     @Singleton
-    fun providePokemonRepositoryLocal(application: Application): PokemonRepositoryLocal{
-        return RepositorioLocal(application)
+    fun providePokemonRepositoryLocal(application: Application): IPokemonRepositoryLocal{
+        return RepositorioLocalImpl(application)
     }
 }

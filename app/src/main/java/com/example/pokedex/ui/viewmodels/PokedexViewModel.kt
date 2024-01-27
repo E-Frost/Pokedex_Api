@@ -8,10 +8,10 @@ import com.example.pokedex.domain.models.Pokemon
 import com.example.pokedex.domain.models.PokemonListItem
 import com.example.pokedex.di.PokedexModule
 import com.example.pokedex.data.sources.remote.api.PokemonService
-import com.example.pokedex.domain.usecases.GetPokemonFromApi
-import com.example.pokedex.domain.usecases.GetPokemonFromJson
-import com.example.pokedex.domain.usecases.GetPokemonListFromApi
-import com.example.pokedex.domain.usecases.GetPokemonOtherFormsFromApi
+import com.example.pokedex.domain.usecases.GetPokemonFromApiUseCase
+import com.example.pokedex.domain.usecases.GetPokemonFromJsonUseCase
+import com.example.pokedex.domain.usecases.GetPokemonListFromApiUseCase
+import com.example.pokedex.domain.usecases.GetPokemonOtherFormsFromApiUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFromApi, val getPokemonListFromApi: GetPokemonListFromApi, val getPokemonOtherFormsFromApi: GetPokemonOtherFormsFromApi, val getPokemonFromJson: GetPokemonFromJson) :ViewModel() {
+class PokedexViewModel @Inject constructor(val getPokemonFromApiUseCase: GetPokemonFromApiUseCase, val getPokemonListFromApiUseCase: GetPokemonListFromApiUseCase, val getPokemonOtherFormsFromApiUseCase: GetPokemonOtherFormsFromApiUseCase, val getPokemonFromJsonUseCase: GetPokemonFromJsonUseCase) :ViewModel() {
     val POKEMON_LIST_LIMIT = 1008
     val OFFSET = 500
 
@@ -51,7 +51,7 @@ class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFro
 
     private fun loadPokemonList() {
         viewModelScope.launch {
-            val pokemonList = getPokemonListFromApi.fetchPokemonList(POKEMON_LIST_LIMIT)
+            val pokemonList = getPokemonListFromApiUseCase.fetchPokemonList(POKEMON_LIST_LIMIT)
             if (!pokemonList.isNullOrEmpty()) {
                 _pokemonList.value = pokemonList
                 _pokemonIds.value = (1..pokemonList.size).toList()
@@ -62,7 +62,7 @@ class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFro
     private fun loadPokemonListOtherForms() {
         val otherFormsFirstElement = POKEMON_LIST_LIMIT + 1
         viewModelScope.launch {
-            val pokemonListOtherForms = getPokemonOtherFormsFromApi.fetchPokemonListOtherForms(OFFSET, POKEMON_LIST_LIMIT)
+            val pokemonListOtherForms = getPokemonOtherFormsFromApiUseCase.fetchPokemonListOtherForms(OFFSET, POKEMON_LIST_LIMIT)
             if (!pokemonListOtherForms.isNullOrEmpty()) {
                 _pokemonListOtherForms.value = pokemonListOtherForms
 
@@ -74,13 +74,13 @@ class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFro
 
     fun cargarPokemon(pokemonName: String) {
         viewModelScope.launch {
-            val pokemonFromApi = getPokemonFromApi.cargarPokemonDesdeApi(pokemonName)
+            val pokemonFromApi = getPokemonFromApiUseCase.cargarPokemonDesdeApi(pokemonName)
 
             if (pokemonFromApi != null) {
                 _pokemon.postValue(pokemonFromApi)
             } else {
                 val pokemonFromJson = withContext(Dispatchers.IO) {
-                   getPokemonFromJson.cargarDatosDesdeJSON(pokemonName)
+                   getPokemonFromJsonUseCase.cargarDatosDesdeJSON(pokemonName)
                 }
 
                 _pokemon.postValue(pokemonFromJson)

@@ -4,13 +4,13 @@ import android.app.Application
 import android.util.Log
 import com.example.pokedex.di.PokedexModule
 import com.example.pokedex.domain.models.Pokemon
-import com.example.pokedex.domain.repositories.PokemonRepositoryLocal
+import com.example.pokedex.domain.repositories.IPokemonRepositoryLocal
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
 import javax.inject.Inject
 
-class RepositorioLocal @Inject constructor(private val application: Application):PokemonRepositoryLocal {
+class RepositorioLocalImpl @Inject constructor(private val application: Application):IPokemonRepositoryLocal {
     override fun cargarDatosDesdeJSON(pokemonName:String): Pokemon? {
 
         var retornoPokemon: Pokemon? = null
