@@ -1,4 +1,4 @@
-package com.example.pokedex.data.maps
+package com.example.pokedex.data.mappers
 
 import com.example.pokedex.domain.models.OficialArtwork
 import com.example.pokedex.domain.models.Other
