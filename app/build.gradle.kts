@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
-//    id("dagger.hilt.android.plugin")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -54,9 +54,7 @@ android {
 dependencies {
     val hiltVersion = "2.48.1"
     ksp("com.google.dagger:hilt-compiler:$hiltVersion")
-
-//    implementation("com.google.dagger:hilt-android:$hiltVersion")
-
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.0")

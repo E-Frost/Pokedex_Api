@@ -1,4 +1,4 @@
-package com.example.pokedex.view
+package com.example.pokedex.ui.screens
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -33,16 +33,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.pokedex.viewmodel.PokedexViewModel
+import com.example.pokedex.ui.viewmodels.PokedexViewModel
 import kotlinx.coroutines.launch
 import java.util.Locale
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonListScreen(navController: NavHostController, viewModel: PokedexViewModel) {
-    val pokemonList by viewModel.pokemonList.observeAsState(emptyList())
-    val pokemonIds by viewModel.pokemonIds.observeAsState(emptyList())
+fun OtherFormsListScreen(navController: NavHostController, viewModel: PokedexViewModel) {
+    val pokemonList by viewModel.pokemonListOtherForms.observeAsState(emptyList())
+    val pokemonIds by viewModel.pokemonIdsOtherForms.observeAsState(emptyList())
     val viewModelScope = rememberCoroutineScope()
 
     Scaffold(
@@ -101,14 +101,6 @@ fun PokemonListScreen(navController: NavHostController, viewModel: PokedexViewMo
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text(
-                                        text = "#$currentPokemonId",
-                                        style = TextStyle(
-                                            fontSize = 23.sp,
-                                            color = Color.White,
-                                            textAlign = TextAlign.Left
-                                        )
-                                    )
 
                                     Text(
                                         text = pokemon.name.replaceFirstChar {
@@ -130,7 +122,7 @@ fun PokemonListScreen(navController: NavHostController, viewModel: PokedexViewMo
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navController.popBackStack()},
                 modifier = Modifier
                     .padding(16.dp)
             ) {

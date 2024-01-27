@@ -1,12 +1,11 @@
-package com.example.pokedex.data.repository.api
+package com.example.pokedex.data.sources.remote.api
 
-import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.model.PokemonListResponse
+import com.example.pokedex.domain.models.Pokemon
+import com.example.pokedex.domain.models.PokemonListResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-
 
 interface PokemonService {
 
