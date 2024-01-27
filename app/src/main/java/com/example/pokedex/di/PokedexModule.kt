@@ -1,7 +1,7 @@
 package com.example.pokedex.di
 
 import android.app.Application
-import com.example.pokedex.data.maps.PokemonMapper
+import com.example.pokedex.data.mappers.PokemonMapper
 import com.example.pokedex.data.repositories.RepositorioApiImpl
 import com.example.pokedex.data.repositories.RepositorioLocalImpl
 import com.example.pokedex.data.sources.remote.api.PokemonService
