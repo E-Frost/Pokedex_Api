@@ -69,6 +69,7 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                 onValueChange = {
                     pokemonName = it
                 },
+                singleLine = true,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -77,14 +78,14 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                 label = {
                     Text(
                         "Nombre pokemon",
-                        color = MaterialTheme.colorScheme.onSecondary,
+                        color = Color.White,
                         fontSize = 15.sp,
                     )
                 },
                 placeholder = {
                     Text(
                         text = "$pokemonName",
-                        color = MaterialTheme.colorScheme.onSecondary,
+                        color = Color.White,
                         fontSize = 40.sp,
                     )
                 },
@@ -131,9 +132,9 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                     keyboardType = KeyboardType.Text
                 ),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.onSecondary,
-                    textColor = MaterialTheme.colorScheme.onPrimary
+                    focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                    textColor = MaterialTheme.colorScheme.tertiary
                 )
             )
 
@@ -144,6 +145,7 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                 onValueChange = {
                     pokemonID = it
                 },
+                singleLine = true,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -152,14 +154,14 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                 label = {
                     Text(
                         "ID pokemon",
-                        color = MaterialTheme.colorScheme.onSecondary,
+                        color = Color.White,
                         fontSize = 15.sp,
                     )
                 },
                 placeholder = {
                     Text(
                         text = "$pokemonID",
-                        color = MaterialTheme.colorScheme.onSecondary,
+                        color = Color.White,
                         fontSize = 40.sp,
                     )
                 },
@@ -205,9 +207,9 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                     keyboardType = KeyboardType.Text
                 ),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.onSecondary,
-                    textColor = MaterialTheme.colorScheme.onPrimary
+                    focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                    textColor = MaterialTheme.colorScheme.tertiary
                 )
             )
 
