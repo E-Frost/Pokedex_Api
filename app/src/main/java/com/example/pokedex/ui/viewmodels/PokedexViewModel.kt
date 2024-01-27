@@ -7,8 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.pokedex.domain.models.Pokemon
 import com.example.pokedex.domain.models.PokemonListItem
 import com.example.pokedex.di.PokedexModule
-import com.example.pokedex.data.repositories.api.PokemonService
+import com.example.pokedex.data.sources.remote.api.PokemonService
 import com.example.pokedex.domain.usecases.GetPokemonFromApi
+import com.example.pokedex.domain.usecases.GetPokemonFromJson
 import com.example.pokedex.domain.usecases.GetPokemonListFromApi
 import com.example.pokedex.domain.usecases.GetPokemonOtherFormsFromApi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFromApi, val getPokemonListFromApi: GetPokemonListFromApi, val getPokemonOtherFormsFromApi: GetPokemonOtherFormsFromApi) :ViewModel() {
+class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFromApi, val getPokemonListFromApi: GetPokemonListFromApi, val getPokemonOtherFormsFromApi: GetPokemonOtherFormsFromApi, val getPokemonFromJson: GetPokemonFromJson) :ViewModel() {
     val POKEMON_LIST_LIMIT = 1008
     val OFFSET = 500
 
@@ -79,10 +80,10 @@ class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFro
                 _pokemon.postValue(pokemonFromApi)
             } else {
                 val pokemonFromJson = withContext(Dispatchers.IO) {
-//                    repositorio.cargarDatosDesdeJSON(pokemonName)
+                   getPokemonFromJson.cargarDatosDesdeJSON(pokemonName)
                 }
 
-//                _pokemon.postValue(pokemonFromJson)
+                _pokemon.postValue(pokemonFromJson)
             }
         }
     }

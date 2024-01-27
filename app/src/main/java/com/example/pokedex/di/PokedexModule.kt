@@ -2,8 +2,10 @@ package com.example.pokedex.di
 
 import android.app.Application
 import com.example.pokedex.data.repositories.RepositorioApi
-import com.example.pokedex.data.repositories.api.PokemonService
+import com.example.pokedex.data.repositories.RepositorioLocal
+import com.example.pokedex.data.sources.remote.api.PokemonService
 import com.example.pokedex.domain.repositories.PokemonRepositoryApi
+import com.example.pokedex.domain.repositories.PokemonRepositoryLocal
 import com.google.gson.Gson
 import dagger.Binds
 import dagger.Module
@@ -52,4 +54,9 @@ object PokedexModule {
         return RepositorioApi(application, pokemonService)
     }
 
+    @Provides
+    @Singleton
+    fun providePokemonRepositoryLocal(application: Application): PokemonRepositoryLocal{
+        return RepositorioLocal(application)
+    }
 }

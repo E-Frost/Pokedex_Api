@@ -2,16 +2,16 @@ package com.example.pokedex.data.repositories
 
 import android.app.Application
 import android.util.Log
-import com.example.pokedex.data.repositories.api.PokemonService
 import com.example.pokedex.di.PokedexModule
 import com.example.pokedex.domain.models.Pokemon
+import com.example.pokedex.domain.repositories.PokemonRepositoryLocal
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
 import javax.inject.Inject
 
-class RepositorioLocal @Inject constructor(private val application: Application) {
-    fun cargarDatosDesdeJSON( pokemonName:String): Pokemon? {
+class RepositorioLocal @Inject constructor(private val application: Application):PokemonRepositoryLocal {
+    override fun cargarDatosDesdeJSON(pokemonName:String): Pokemon? {
 
         var retornoPokemon: Pokemon? = null
         try {

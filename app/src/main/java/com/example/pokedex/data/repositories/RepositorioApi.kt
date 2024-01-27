@@ -1,7 +1,7 @@
 package com.example.pokedex.data.repositories
 
 import android.app.Application
-import com.example.pokedex.data.repositories.api.PokemonService
+import com.example.pokedex.data.sources.remote.api.PokemonService
 import com.example.pokedex.di.PokedexModule
 import com.example.pokedex.domain.models.Pokemon
 import com.example.pokedex.domain.models.PokemonListItem
