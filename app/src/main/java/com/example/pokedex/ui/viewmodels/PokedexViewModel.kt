@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFromApi) :ViewModel() {
+class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFromApi, val getPokemonListFromApi: GetPokemonListFromApi, val getPokemonOtherFormsFromApi: GetPokemonOtherFormsFromApi) :ViewModel() {
     val POKEMON_LIST_LIMIT = 1008
     val OFFSET = 500
 
@@ -50,7 +50,7 @@ class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFro
 
     private fun loadPokemonList() {
         viewModelScope.launch {
-            val pokemonList = getPokemonFromApi.fetchPokemonList(POKEMON_LIST_LIMIT)
+            val pokemonList = getPokemonListFromApi.fetchPokemonList(POKEMON_LIST_LIMIT)
             if (!pokemonList.isNullOrEmpty()) {
                 _pokemonList.value = pokemonList
                 _pokemonIds.value = (1..pokemonList.size).toList()
@@ -61,7 +61,7 @@ class PokedexViewModel @Inject constructor( val getPokemonFromApi: GetPokemonFro
     private fun loadPokemonListOtherForms() {
         val otherFormsFirstElement = POKEMON_LIST_LIMIT + 1
         viewModelScope.launch {
-            val pokemonListOtherForms = getPokemonFromApi.fetchPokemonListOtherForms(OFFSET, POKEMON_LIST_LIMIT)
+            val pokemonListOtherForms = getPokemonOtherFormsFromApi.fetchPokemonListOtherForms(OFFSET, POKEMON_LIST_LIMIT)
             if (!pokemonListOtherForms.isNullOrEmpty()) {
                 _pokemonListOtherForms.value = pokemonListOtherForms
 
