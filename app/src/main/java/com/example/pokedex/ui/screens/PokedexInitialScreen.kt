@@ -15,11 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.pokedex.ui.theme.tipografiaPokemon
 import com.example.pokedex.ui.viewmodels.PokedexViewModel
 import kotlinx.coroutines.launch
 
@@ -52,14 +54,27 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
 
                 ) {
+                Spacer(modifier = Modifier
+                        .weight(1f)
+                )
+
                 Text(
-                    text = "Lista Pokemons",
+                    modifier = Modifier
+                        .weight(1f),
+                            text = "   Pokedex",
                     style = TextStyle(
-                        fontSize = 23.sp,
+                        fontFamily = tipografiaPokemon,
                         color = Color.White,
-                        textAlign = TextAlign.Center
+                        fontSize = 50.sp,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold
                     )
                 )
+
+                Spacer(modifier = Modifier
+                    .weight(1f)
+                )
+
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -225,15 +240,28 @@ fun PokedexInitialScreen(navController: NavHostController, viewModel: PokedexVie
                         navController.navigate("listaApiOtrasFormas")
                     },
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
-                ) {
+            ) {
+
+                Spacer(modifier = Modifier
+                    .weight(1f)
+                )
+
                 Text(
-                    text = "Lista otras formas",
+                    modifier = Modifier
+                        .weight(1f),
+                    text = "            Other Forms",
                     style = TextStyle(
-                        fontSize = 23.sp,
+                        fontFamily = tipografiaPokemon,
                         color = Color.White,
-                        textAlign = TextAlign.Center
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold
                     )
                 )
+                Spacer(modifier = Modifier
+                    .weight(1f)
+                )
+
             }
         }
     }

@@ -53,6 +53,16 @@ fun OtherFormsListScreen(navController: NavHostController, viewModel: PokedexVie
                     .background(MaterialTheme.colorScheme.primary)
                     .padding(25.dp)
             ) {
+
+                item { Text(
+                    text = "Advertencia: Esta sección puede contener errores o estar incompleta. Algunos Pokémon pueden no tener imágenes o información completa.",
+                    style = TextStyle(
+                        fontSize = 23.sp,
+                        color = Color.White,
+                        textAlign = TextAlign.Center
+                    ),
+                ) }
+
                 items(pokemonList) { pokemon ->
                     val index = pokemonList.indexOf(pokemon)
                     val currentPokemonId = pokemonIds.getOrNull(index)

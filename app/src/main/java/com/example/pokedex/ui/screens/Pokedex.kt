@@ -41,6 +41,7 @@ import com.example.pokedex.domain.models.PokemonListItem
 import com.example.pokedex.ui.components.PokemonHeightAndWeightRow
 import com.example.pokedex.ui.components.PokemonCard
 import com.example.pokedex.ui.components.PokemonMegaForm
+import com.example.pokedex.ui.components.PokemonRegionalForms
 import com.example.pokedex.ui.components.PokemonStatsRow
 import com.example.pokedex.ui.components.PokemonTypeRow
 import com.example.pokedex.ui.viewmodels.PokedexViewModel
@@ -143,6 +144,7 @@ fun PokedexContent(pokemon: Pokemon?, navController: NavHostController, ViewMode
             PokemonStatsRow(pokemon)
             PokemonHeightAndWeightRow(pokemon)
             PokemonMegaForm(pokemon, ViewModel, navController)
+            PokemonRegionalForms(pokemon, ViewModel, navController)
         }
     }
 }
